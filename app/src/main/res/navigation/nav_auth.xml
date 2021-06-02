@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_auth"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.farmer.Entry"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_entry">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_signIn"
+            app:destination="@id/signIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.example.farmer.ui.productslist.CustomerProductsListFragment"
+        android:label="@string/products_list_label"
+        tools:layout="@layout/fragment_products_list"/>
+    <fragment
+        android:id="@+id/signUp"
+        android:name="com.example.farmer.ui.auth.SignUp"
+        android:label="SignUp"
+        tools:layout="@layout/fragment_sign_up"
+        >
+        <action
+            android:id="@+id/action_signUp_to_otp"
+            app:destination="@id/otp" />
+    </fragment>
+    <fragment
+        android:id="@+id/signIn"
+        android:name="com.example.farmer.ui.auth.SignIn"
+        android:label="SignIn"
+        tools:layout="@layout/fragment_sign_in"
+        >
+        <action
+            android:id="@+id/action_signIn_to_signUp"
+            app:destination="@id/signUp" />
+        <action
+            android:id="@+id/action_signIn_to_otp"
+            app:destination="@id/otp" />
+    </fragment>
+    <fragment
+        android:id="@+id/otp"
+        android:name="com.example.farmer.ui.auth.Otp"
+        android:label="Otp"
+        tools:layout="@layout/fragment_otp">
+        <argument
+            android:name="userName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+        <argument
+            android:name="WhatsNumber"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument android:name="state"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="district"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="i"
+            app:argType="string"
+            android:defaultValue="0" />
+    </fragment>
+</navigation>
