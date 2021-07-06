@@ -22,13 +22,5 @@
         <action
             android:id="@+id/action_farmerProducts_to_addProduct"
             app:destination="@id/addProduct" />
-        <action
-            android:id="@+id/action_farmerProducts_to_productDetails"
-            app:destination="@id/productDetails" />
     </fragment>
-    <fragment
-        android:id="@+id/productDetails"
-        android:name="com.example.farmer.ui.farmer.ProductDetails"
-        android:label="fragment_products_details"
-        tools:layout="@layout/fragment_products_details" />
 </navigation>

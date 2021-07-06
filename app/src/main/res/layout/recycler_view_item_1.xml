@@ -79,7 +79,7 @@
                 android:text="Quality:"
                 android:textColor="@color/light_grey"
                 app:layout_constraintEnd_toStartOf="@+id/textView15"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="@+id/product_name"
                 app:layout_constraintTop_toBottomOf="@+id/product_name" />

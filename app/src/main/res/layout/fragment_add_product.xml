@@ -19,38 +19,48 @@
 
         <EditText
             android:id="@+id/editTextUnit"
-            android:layout_width="379dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/edittext_background_cornered"
             android:ems="10"
             android:hint="Unit"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="@={data.unit}"
+            android:textColor="@color/lither_gray"
             android:textColorHint="@color/mmedium_grey"
             app:layout_constraintBottom_toTopOf="@+id/buttonAddProduct"
-            app:layout_constraintTop_toBottomOf="@+id/editTextStock"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextStock" />
 
         <EditText
             android:id="@+id/editTextQuality"
-            android:layout_width="379dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/edittext_background_cornered"
             android:ems="10"
             android:hint="Quality"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="@={data.quality}"
+            android:textColor="@color/lither_gray"
             android:textColorHint="@color/mmedium_grey"
             app:layout_constraintBottom_toTopOf="@+id/editTextStock"
-            app:layout_constraintTop_toBottomOf="@+id/editTextPrice"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPrice" />
 
         <EditText
             android:id="@+id/editTextStock"
-            android:layout_width="379dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/edittext_background_cornered"
             android:ems="10"
             android:hint="Stock"
@@ -58,10 +68,12 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="@={data.stock}"
+            android:textColor="@color/lither_gray"
             android:textColorHint="@color/mmedium_grey"
             app:layout_constraintBottom_toTopOf="@+id/editTextUnit"
-            app:layout_constraintTop_toBottomOf="@+id/editTextQuality"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextQuality" />
 
         <TextView
             android:id="@+id/textView11"
@@ -77,8 +89,9 @@
 
         <EditText
             android:id="@+id/editTextTextPersonName"
-            android:layout_width="379dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/edittext_background_cornered"
             android:ems="10"
             android:hint="Product Name"
@@ -86,15 +99,20 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="@={data.name}"
+            android:textColor="@color/lither_gray"
             android:textColorHint="@color/mmedium_grey"
             app:layout_constraintBottom_toTopOf="@+id/editTextPrice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11"
-            tools:layout_editor_absoluteX="16dp" />
+            android:layout_marginStart="16dp" />
 
         <EditText
             android:id="@+id/editTextPrice"
-            android:layout_width="379dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/edittext_background_cornered"
             android:ems="10"
             android:hint="Price"
@@ -102,10 +120,12 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="@={data.price}"
+            android:textColor="@color/lither_gray"
             android:textColorHint="@color/mmedium_grey"
             app:layout_constraintBottom_toTopOf="@+id/editTextQuality"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
         <Button
             android:id="@+id/buttonAddProduct"
@@ -115,8 +135,9 @@
             android:onClick="@{() -> data.addProductToTheDatabase()}"
             android:text="add"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextUnit"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="@+id/editTextUnit"
+            app:layout_constraintStart_toStartOf="@+id/editTextUnit"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUnit" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar4"

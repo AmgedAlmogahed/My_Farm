@@ -106,7 +106,9 @@ class Otp : Fragment() {
             warning?.let {
                 when (viewModel.warningType.value) {
                     "CODE" -> {
-
+                        binding.OtpEditText.error = warning
+                        binding.OtpEditText.requestFocus()
+                        return@let
                     }
                 }
                 viewModel.endWarning()
@@ -115,7 +117,7 @@ class Otp : Fragment() {
 
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Toast.makeText(application, it, Toast.LENGTH_SHORT).show()
+                toast(it)
                 viewModel.endToast()
             }
         })

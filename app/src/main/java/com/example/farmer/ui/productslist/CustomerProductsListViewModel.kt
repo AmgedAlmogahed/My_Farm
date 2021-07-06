@@ -6,13 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.farmer.data.repository.Repository
-import com.example.farmer.data.responses.Listing
 import com.example.farmer.data.room.entities.CustomerProducts
 import com.example.farmer.util.ApiStatus
 import kotlinx.coroutines.launch
 
 class CustomerProductsListViewModel(
-    repository: Repository,
+    val repository: Repository,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -40,7 +39,7 @@ class CustomerProductsListViewModel(
 //    init {
 //        getAllSellers()
 //    }
-//
+
 //    private fun getAllSellers() {
 //        viewModelScope.launch {
 //            _status.value = ApiStatus.LOADING

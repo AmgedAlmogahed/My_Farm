@@ -20,7 +20,9 @@
 
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#404E5A">
+            android:background="#404E5A"
+            android:fadeScrollbars="true"
+            android:nestedScrollingEnabled="true">
 
             <TextView
                 android:id="@+id/textView3"
@@ -45,6 +47,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="@={viewmodel.userName}"
+                android:textColor="@color/lither_gray"
                 android:textColorHint="@color/mmedium_grey"
                 app:layout_constraintBottom_toTopOf="@+id/editTextPhoneNumber"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,6 +66,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="@={viewmodel.phoneNumber}"
+                android:textColor="@color/lither_gray"
                 android:textColorHint="@color/mmedium_grey"
                 app:layout_constraintBottom_toTopOf="@+id/editTextWhatsAppNumber"
                 app:layout_constraintEnd_toEndOf="@+id/editTextFarmerName"
@@ -80,6 +84,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="@={viewmodel.whatsAppNumber}"
+                android:textColor="@color/lither_gray"
                 android:textColorHint="@color/mmedium_grey"
                 app:layout_constraintBottom_toTopOf="@+id/editTextState"
                 app:layout_constraintEnd_toEndOf="@+id/editTextPhoneNumber"
@@ -97,6 +102,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="@={viewmodel.state}"
+                android:textColor="@color/lither_gray"
                 android:textColorHint="@color/mmedium_grey"
                 app:layout_constraintBottom_toTopOf="@+id/editTextDistrict"
                 app:layout_constraintEnd_toEndOf="@+id/editTextWhatsAppNumber"
@@ -114,6 +120,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="@={viewmodel.district}"
+                android:textColor="@color/lither_gray"
                 android:textColorHint="@color/mmedium_grey"
                 app:layout_constraintBottom_toTopOf="@+id/buttonRegistration"
                 app:layout_constraintEnd_toEndOf="@+id/editTextState"

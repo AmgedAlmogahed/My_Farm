@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 
 
-private const val BASE_URL = "https://76195f40-ca62-4347-aba2-47c6921c16a4.mock.pstmn.io/api/"
+private const val BASE_URL = "https://172.0.0.1:5000"
 
 /**
  * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
@@ -52,7 +52,7 @@ private val retrofit = Retrofit.Builder()
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object ListingApi {
-    val retrofitService: ListingApiService by lazy { retrofit.create(ListingApiService::class.java) }
+    val RETROFIT_SERVICE: ProductApiService by lazy { retrofit.create(ProductApiService::class.java) }
 }
 
 object AuthApi {

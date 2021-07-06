@@ -83,12 +83,14 @@ class CustomerProductsListFragment : Fragment() {
                     binding.apply {
                         adapter.submitList(it)
                         listing.visible(true)
-                        statusImage.visible(false)
+                        statusText.visible(false)
+//                        statusImage.visible(false)
                     }
                 } else {
                     binding.apply {
                         listing.visible(false)
-                        statusImage.visible(true)
+                        statusText.visible(true)
+//                        statusImage.visible(true)
                     }
                 }
             }
