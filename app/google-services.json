@@ -7,41 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:73009091501:android:52fab2b9aba414c0480724",
-        "android_client_info": {
-          "package_name": "com.example.farmer"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "73009091501-ah9vt9q988461mk0jip5q6cc7dh9gdbt.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAhy-FjY92Wv3hVrhmPROgUfB3IeG7fbYw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "73009091501-ah9vt9q988461mk0jip5q6cc7dh9gdbt.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:73009091501:android:5a26d0786c7fa8f5480724",
         "android_client_info": {
           "package_name": "com.example.myfarm"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "73009091501-0m1tdl79q50p5t8r68ffspbp5ls6undq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myfarm",
+            "certificate_hash": "0133a181b8cfd30198ce0311764d9603a222fc18"
+          }
+        },
         {
           "client_id": "73009091501-9l94u3bii7i8arfqu9ht0mrc6prf4vac.apps.googleusercontent.com",
           "client_type": 1,
