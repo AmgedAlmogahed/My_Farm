@@ -1,19 +1,28 @@
 package com.example.farmer.data.network
 
-import com.example.farmer.data.responses.Products
+import com.example.farmer.data.responses.AddResponse
+import com.example.farmer.data.responses.ProductResponse
 import retrofit2.http.*
 
 interface ProductApiService {
-
+    @FormUrlEncoded
     @GET("products")
-    suspend fun getAllProducts(): List<Products>
+    suspend fun getAllProducts(): List<ProductResponse>
 
-    @POST
-    suspend fun addProduct(): Nothing
+    @FormUrlEncoded
+    @GET("products/{id}")
+    suspend fun getFramerProducts(@Path("id") id: String): List<ProductResponse>
 
-    @PUT
-    suspend fun updateProduct(): Nothing
+    @FormUrlEncoded
+    @POST("addproduct")
+    suspend fun addProduct(
+        @Field("farmer_id") farmerId: String,
+        @Field("title") title: String,
+        @Field("price") price: String,
+        @Field("stock") stock: String,
+        @Field("quality") quality: String,
+        @Field("status") status: String,
+    ): AddResponse
 
-    @DELETE
-    suspend fun deleteProduct(): Nothing
+
 }

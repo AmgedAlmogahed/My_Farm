@@ -7,35 +7,33 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.farmer.Entry"
+        android:name="com.example.farmer.EntryFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_entry">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
             android:id="@+id/action_FirstFragment_to_signIn"
+            app:destination="@id/signIn" />
+        <action
+            android:id="@+id/action_FirstFragment_to_signIn2"
             app:destination="@id/signIn" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.farmer.ui.productslist.CustomerProductsListFragment"
-        android:label="@string/products_list_label"
-        tools:layout="@layout/fragment_products_list"/>
-    <fragment
         android:id="@+id/signUp"
-        android:name="com.example.farmer.ui.auth.SignUp"
+        android:name="com.example.farmer.ui.auth.SignUpFragment"
         android:label="SignUp"
         tools:layout="@layout/fragment_sign_up"
         >
         <action
             android:id="@+id/action_signUp_to_otp"
             app:destination="@id/otp" />
+        <argument
+            android:name="type"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/signIn"
-        android:name="com.example.farmer.ui.auth.SignIn"
+        android:name="com.example.farmer.ui.auth.SignInFragment"
         android:label="SignIn"
         tools:layout="@layout/fragment_sign_in"
         >
@@ -45,10 +43,13 @@
         <action
             android:id="@+id/action_signIn_to_otp"
             app:destination="@id/otp" />
+        <argument
+            android:name="type"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/otp"
-        android:name="com.example.farmer.ui.auth.Otp"
+        android:name="com.example.farmer.ui.auth.OtpFragment"
         android:label="Otp"
         tools:layout="@layout/fragment_otp">
         <argument
@@ -74,5 +75,8 @@
             android:name="i"
             app:argType="string"
             android:defaultValue="0" />
+        <argument
+            android:name="type"
+            app:argType="string" />
     </fragment>
 </navigation>

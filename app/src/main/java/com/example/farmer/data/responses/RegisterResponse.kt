@@ -1,5 +1,6 @@
 package com.example.farmer.data.responses
 
-class RegisterResponse {
-
-}
+data class RegisterResponse(
+    val error: Boolean,
+    val message: String
+)

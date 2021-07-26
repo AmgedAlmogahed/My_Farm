@@ -76,7 +76,7 @@ class FarmerProducts : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar(binding.toolbar3, R.id.fragment2)
+        toolbar(binding.toolbar3, R.id.fragment_farmer)
         binding.toolbar3.inflateMenu(R.menu.menu_main)
 
         binding.toolbar3.setOnMenuItemClickListener {

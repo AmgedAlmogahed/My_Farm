@@ -9,29 +9,30 @@ import com.example.farmer.data.room.entities.Farmers
 
 class AuthRepository(private val farmerDao: FarmerDao? = null) {
 
-    suspend fun login(
-        phoneNumber: String,
-        password: String
-    ) = AuthApi.retrofitService.login(phoneNumber, password)
+
 
     suspend fun Register(
         name: String,
         phoneNumber: String,
         whatsAppNumber: String,
-        state: String,
-        district: String
-    ) = AuthApi.retrofitService.createCustomerAccount(
+        city: String,
+        pincode: String,
+        address: String,
+        type: String
+    ) = AuthApi.RETROFIT_SERVICE.createAccount(
         name,
         phoneNumber,
         whatsAppNumber,
-        state,
-        district
+        city,
+        pincode,
+        address,
+        type
     )
 
-    suspend fun validateUser(
-        phoneNumber: String,
-        name: String
-    ) = AuthApi.retrofitService.validateUser(name, phoneNumber)
+//    suspend fun validateUser(
+//        phoneNumber: String,
+//        name: String
+//    ) = AuthApi.RETROFIT_SERVICE.validateUser(name, phoneNumber)
 
 
     suspend fun addFarmer(farmer: Farmers) = farmerDao?.insert(farmer)

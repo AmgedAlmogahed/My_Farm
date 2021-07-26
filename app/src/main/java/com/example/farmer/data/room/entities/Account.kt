@@ -8,9 +8,7 @@ import androidx.room.PrimaryKey
 data class Account(
     @ColumnInfo(name = "phone_number")
     val phoneNumber: String?,
-
+    val type: String?,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id")
-    val accountId: Int? = 0,
-
-
+    val accountId: Int? = 0
     )

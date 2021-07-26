@@ -12,7 +12,6 @@ import com.example.farmer.R
 import com.example.farmer.data.repository.Repository
 import com.example.farmer.data.room.AppDatabase
 import com.example.farmer.databinding.FragmentAddProductBinding
-import com.example.farmer.databinding.FragmentFarmerProductsBinding
 import com.example.farmer.util.toolbar
 import com.google.android.material.snackbar.Snackbar
 
@@ -26,7 +25,7 @@ class AddProduct : Fragment() {
     ): View? {
         binding = FragmentAddProductBinding.inflate(inflater)
 
-        toolbar(binding.toolbar4,R.id.fragment2)
+        toolbar(binding.toolbar4,R.id.fragment_farmer)
 
         val application = requireNotNull(this.activity).application
 

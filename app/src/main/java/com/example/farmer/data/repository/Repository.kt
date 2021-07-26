@@ -1,13 +1,13 @@
 package com.example.farmer.data.repository
 
-import com.example.farmer.data.network.ListingApi
+import com.example.farmer.data.network.ProductsApi
 import com.example.farmer.data.room.dao.ProductsDao
 import com.example.farmer.data.room.entities.Products
 
 class Repository(private val dao : ProductsDao? = null) {
 
     suspend fun getAllProducts() =
-        ListingApi.RETROFIT_SERVICE.getAllProducts()
+        ProductsApi.RETROFIT_SERVICE.getAllProducts()
 
     fun getAllProductsL() = dao?.getAllProducts()
 

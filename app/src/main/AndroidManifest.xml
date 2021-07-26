@@ -9,6 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.Farmer">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -20,12 +21,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
-            android:theme="@style/Theme.Farmer.NoActionBar"/>
+            android:name=".ui.farmer.FarmerActivity"
+            android:theme="@style/Theme.Farmer.NoActionBar" />
         <activity
             android:name=".ui.auth.AuthActivity"
-            android:theme="@style/Theme.Farmer.NoActionBar"/>
-
+            android:theme="@style/Theme.Farmer.NoActionBar" />
+        <activity
+            android:name=".ui.customer.CustomerActivity"
+            android:theme="@style/Theme.Farmer.NoActionBar"
+            />
     </application>
 
 </manifest>

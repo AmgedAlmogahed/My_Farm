@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.farmer.data.room.entities.CustomerProducts
 import com.example.farmer.data.room.entities.Products
 import com.example.farmer.ui.farmer.FarmerAdapter
-import com.example.farmer.ui.productslist.ProductsAdapter
+import com.example.farmer.ui.customer.ProductsAdapter
 
 
 ///**

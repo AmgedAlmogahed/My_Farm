@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_cutomer"
+    app:startDestination="@id/customerProducts">
+
+    <fragment
+        android:id="@+id/customerProducts"
+        android:name="com.example.farmer.ui.customer.CustomerProductsFragment"
+        tools:layout="@layout/fragment_customer_products"
+        android:label="Products">
+        <action
+            android:id="@+id/action_customerProducts_to_feedback"
+            app:destination="@id/feedback" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedback"
+        android:name="com.example.farmer.ui.feedback.FeedbackFragment"
+        tools:layout="@layout/fragment_feedback"
+        android:label="feedback">
+        <action
+            android:id="@+id/action_feedback_to_addFeedback"
+            app:destination="@id/addFeedback" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="farmer"
+            app:argType="string" />
+        <argument
+            android:name="state"
+            app:argType="string" />
+        <argument
+            android:name="district"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="string" />
+        <argument
+            android:name="quality"
+            app:argType="string" />
+        <argument
+            android:name="stock"
+            app:argType="string" />
+        <argument
+            android:name="unit"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/addFeedback"
+        android:name="com.example.farmer.ui.feedback.AddFeedbackFragment"
+        tools:layout="@layout/fragment_add_feedback"
+        android:label="Add feedback" />
+</navigation>

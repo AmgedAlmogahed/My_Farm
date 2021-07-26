@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darker_grey"
-    tools:context=".Entry">
+    tools:context=".EntryFragment">
 
     <Button
         android:id="@+id/button_customer"

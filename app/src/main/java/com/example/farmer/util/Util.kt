@@ -14,10 +14,14 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.farmer.R
-import com.example.farmer.ui.productslist.CustomerProductsListViewModel
+import com.example.farmer.ui.customer.CustomerProductsViewModel
 import com.google.android.material.snackbar.Snackbar
 
 enum class ApiStatus { LOADING, ERROR, DONE }
+
+const val CUSTOMER = "customer"
+const val FARMER = "farmer"
+
 
 fun toast(message: String?) {
     Toast.makeText(MyApplication.instance, message, Toast.LENGTH_LONG).show()
@@ -25,6 +29,14 @@ fun toast(message: String?) {
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
     Intent(this, activity).also {
+        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(it)
+    }
+}
+
+fun <A : Activity> Activity.startNewActivity(activity: Class<A>, type: String?) {
+    Intent(this, activity).also {
+        it.putExtra("type", type)
         it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(it)
     }
@@ -50,7 +62,7 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 }
 
 
-fun Fragment.toolbar(toolbar: Toolbar,nav: Int) {
+fun Fragment.toolbar(toolbar: Toolbar, nav: Int) {
     toolbar.apply {
         this.layoutDirection = View.LAYOUT_DIRECTION_RTL
         this.setTitleTextColor(resources.getColor(R.color.white))
@@ -59,10 +71,16 @@ fun Fragment.toolbar(toolbar: Toolbar,nav: Int) {
     val navController = Navigation.findNavController(requireActivity(), nav)
     val appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
     NavigationUI.setupWithNavController(
-        toolbar, navController, appBarConfiguration)
+        toolbar, navController, appBarConfiguration
+    )
 }
 
-fun Fragment.apiStatus(viewModel: CustomerProductsListViewModel, statusImage: ImageView, statusText: TextView, progressBar: ProgressBar) {
+fun Fragment.apiStatus(
+    viewModel: CustomerProductsViewModel,
+    statusImage: ImageView,
+    statusText: TextView,
+    progressBar: ProgressBar
+) {
     viewModel.status.observe(viewLifecycleOwner, Observer { status ->
         status?.let {
             when (status) {

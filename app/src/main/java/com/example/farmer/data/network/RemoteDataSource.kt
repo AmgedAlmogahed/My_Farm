@@ -2,7 +2,7 @@ package com.example.farmer.data.network
 
 
 
-import com.example.android.tasheel.data.network.AuthApiService
+import com.example.android.tasheel.data.network.AccountApiService
 import com.example.farmer.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -51,11 +51,16 @@ private val retrofit = Retrofit.Builder()
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
-object ListingApi {
+object ProductsApi {
     val RETROFIT_SERVICE: ProductApiService by lazy { retrofit.create(ProductApiService::class.java) }
 }
 
 object AuthApi {
-    val retrofitService: AuthApiService by lazy { retrofit.create(AuthApiService::class.java) }
+    val RETROFIT_SERVICE: AccountApiService by lazy { retrofit.create(AccountApiService::class.java) }
 }
+
+object FeedbackApi {
+    val RETROFIT_SERVICE: AccountApiService by lazy { retrofit.create(AccountApiService::class.java) }
+}
+
 

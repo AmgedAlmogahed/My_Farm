@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.android.tasheel.data.repository.AuthRepository
 import com.example.farmer.data.responses.LoginResponse
-import com.example.farmer.data.responses.RegisterResponse
 import com.example.farmer.data.room.entities.Account
 import com.example.farmer.data.room.entities.Farmers
 import com.example.farmer.util.ApiStatus
@@ -31,25 +30,23 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
     val accounts = repository.getAccount()
 
 
-
+    val type = MutableLiveData<String>()
 
     val codeOTP = MutableLiveData<String>()
 
     private val _status = MutableLiveData<ApiStatus>()
-
     val status: LiveData<ApiStatus>
         get() = _status
-    private val _warningFocus = MutableLiveData<String>()
 
+    private val _warningFocus = MutableLiveData<String>()
     val warningFocus: LiveData<String>
         get() = _warningFocus
+
     private val _warningType = MutableLiveData<String>()
-
-
     val warningType: LiveData<String>
         get() = _warningType
-    private val _toastMessage = MutableLiveData<String>()
 
+    private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String>
         get() = _toastMessage
 
@@ -84,7 +81,6 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
     }
 
 
-
     fun registerUserIfOTPTrue(
         userName: String?,
         phoneNumber: String,
@@ -107,12 +103,14 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
     }
 
     fun signInIfOTPTrue(
-        phoneNumber: String
+        phoneNumber: String,
+        type: String
     ) {
 
         viewModelScope.launch {
             val account = Account(
-                phoneNumber
+                phoneNumber,
+                type
             )
             repository.addAccount(account)
         }
@@ -138,10 +136,9 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
 
             val farmer = repository.validateFarmer(phoneNumber)
             //validation     check whether customer registered or not for sign up
-            if (farmer?.phoneNumber.equals(phoneNumber)){
+            if (farmer?.phoneNumber.equals(phoneNumber)) {
                 _toastMessage.value = "PhoneNumber already exist"
-            }
-            else {
+            } else {
                 _status.value = ApiStatus.DONE
             }
         }
@@ -163,11 +160,10 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
 
             val farmer = repository.validateFarmer(phoneNumber)
             //validation     check whether customer registered or not for sign in
-            if (farmer?.phoneNumber.equals(phoneNumber)){
+            if (farmer?.phoneNumber.equals(phoneNumber)) {
                 _status.value = ApiStatus.DONE
-            }
-            else {
-               _toastMessage.value = "Phone number is not registered"
+            } else {
+                _toastMessage.value = "Phone number is not registered"
             }
 
         }

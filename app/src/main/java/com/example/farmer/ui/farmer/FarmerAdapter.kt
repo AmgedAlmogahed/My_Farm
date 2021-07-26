@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.farmer.data.room.entities.Products
-import com.example.farmer.databinding.RecyclerViewItem1Binding
-import com.example.farmer.databinding.RecyclerViewItemBinding
+
+import com.example.farmer.databinding.RecyclerViewItemFarmerProductsBinding
 
 
 class FarmerAdapter(
@@ -17,7 +17,7 @@ class FarmerAdapter(
      * The ListingViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [Products] information.
      */
-    class ListingViewHolder(private var binding: RecyclerViewItem1Binding) :
+    class ListingViewHolder(private var binding: RecyclerViewItemFarmerProductsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
 //            call: OnClickListener,
@@ -33,7 +33,7 @@ class FarmerAdapter(
         companion object {
             fun from(parent: ViewGroup): ListingViewHolder {
                 val view = LayoutInflater.from(parent.context)
-                val binding = RecyclerViewItem1Binding.inflate(view, parent, false)
+                val binding = RecyclerViewItemFarmerProductsBinding.inflate(view, parent, false)
                 return ListingViewHolder(binding)
             }
         }
