@@ -1,14 +1,15 @@
 package com.example.farmer.ui.auth
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.android.tasheel.data.repository.AuthRepository
-import com.example.farmer.data.responses.LoginResponse
+import com.example.farmer.data.network.responses.AccountResponse
+import com.example.farmer.data.network.responses.LoginResponse
 import com.example.farmer.data.room.entities.Account
-import com.example.farmer.data.room.entities.Farmers
 import com.example.farmer.util.ApiStatus
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.coroutines.launch
@@ -20,10 +21,11 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
 
     // Two-way databinding, exposing MutableLiveData
     val userName = MutableLiveData<String>()
-    val state = MutableLiveData<String>()
-    val district = MutableLiveData<String>()
+    val city = MutableLiveData<String>()
+    val pincode = MutableLiveData<String>()
     val phoneNumber = MutableLiveData<String>()
     val whatsAppNumber = MutableLiveData<String>()
+    val address = MutableLiveData<String>()
 
     val signInPhoneNumber = MutableLiveData<String>()
 
@@ -66,6 +68,10 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
     val navigateToLogin: LiveData<Boolean>
         get() = _navigateToLogin
 
+    private val _account = MutableLiveData<com.example.farmer.data.network.responses.Account>()
+    val account : LiveData<com.example.farmer.data.network.responses.Account>
+        get() = _account
+
     /**
      * When the property is clicked, set the [_navigateToLogin] [MutableLiveData]
      */
@@ -85,31 +91,48 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
         userName: String?,
         phoneNumber: String,
         WhatsAppNumber: String?,
-        state: String?,
-        district: String?
+        city: String?,
+        pincode: String?,
+        address: String?,
+        type: String?
     ) {
 
         viewModelScope.launch {
-            val account = Farmers(
+            val add = repository.addAccount(
                 userName,
                 phoneNumber,
                 WhatsAppNumber,
-                state,
-                district
+                city,
+                pincode,
+                address,
+                type
             )
-            repository.addFarmer(account)
+
+            _account.value = add.account[0]
         }
 
     }
 
     fun signInIfOTPTrue(
         phoneNumber: String,
-        type: String
+        whatsNumber: String?,
+        accountId: Int?,
+        name: String?,
+        state: String?,
+        pincode: String?,
+        address: String?,
+        type: String?
     ) {
 
         viewModelScope.launch {
             val account = Account(
                 phoneNumber,
+                whatsNumber,
+                accountId,
+                name,
+                state,
+                pincode,
+                address,
                 type
             )
             repository.addAccount(account)
@@ -124,23 +147,32 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
                 userName.value.toString().trim(),
                 phoneNumber.value.toString().trim(),
                 whatsAppNumber.value.toString().trim(),
-                district.value.toString().trim(),
-                state.value.toString().trim()
+                city.value.toString().trim(),
+                pincode.value.toString().trim(),
+                address.value.toString().trim()
             )
         ) return
 
 
         viewModelScope.launch {
 
-            val phoneNumber = phoneNumber.value.toString().trim()
 
-            val farmer = repository.validateFarmer(phoneNumber)
-            //validation     check whether customer registered or not for sign up
-            if (farmer?.phoneNumber.equals(phoneNumber)) {
-                _toastMessage.value = "PhoneNumber already exist"
-            } else {
-                _status.value = ApiStatus.DONE
+            try {
+                val phoneNumber = phoneNumber.value.toString().trim()
+
+                val farmer = repository.validateAccount(phoneNumber)
+                //validation     check whether customer registered or not for sign up
+                if (farmer.error) {
+                    _status.value = ApiStatus.DONE
+                } else if (farmer.account[0].phone_number == phoneNumber) {
+                    _toastMessage.value = "PhoneNumber already exist"
+                }
+
+            } catch (e: Exception) {
+                Log.i("Authentication", e.toString())
+                _toastMessage.value = "Check your Internet connection and try again"
             }
+
         }
 
 
@@ -156,15 +188,23 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
 
         viewModelScope.launch {
 
-            val phoneNumber = signInPhoneNumber.value.toString().trim()
 
-            val farmer = repository.validateFarmer(phoneNumber)
-            //validation     check whether customer registered or not for sign in
-            if (farmer?.phoneNumber.equals(phoneNumber)) {
-                _status.value = ApiStatus.DONE
-            } else {
-                _toastMessage.value = "Phone number is not registered"
+            try {
+                val phoneNumber = signInPhoneNumber.value.toString().trim()
+
+
+                val farmer = repository.validateAccount(phoneNumber)
+                if (farmer.error) {
+                    _toastMessage.value = "Phone number is not registered"
+                } else if (farmer.account[0].phone_number == phoneNumber) {
+                    _status.value = ApiStatus.DONE
+                    _account.value = farmer.account[0]
+                }
+            } catch (e: Exception) {
+                Log.i("Authentication", e.toString())
+                _toastMessage.value = "Check Your Internet Connection and try again"
             }
+
 
         }
 
@@ -199,8 +239,9 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
         Name: String?,
         PhoneNumber: String?,
         WhatsAppNumber: String?,
-        District: String?,
-        State: String?
+        City: String?,
+        Pincode: String?,
+        Address: String?
     ): Boolean {
 
         when {
@@ -231,14 +272,19 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
                 _warningFocus.value = "WhatsApp number cant be less than 10 digits"
                 return true
             }
-            District == "null" || District!!.isEmpty() -> {
-                _warningType.value = "DISTRICT"
-                _warningFocus.value = "District can't be empty"
+            City == "null" || City!!.isEmpty() -> {
+                _warningType.value = "CITY"
+                _warningFocus.value = "City can't be empty"
                 return true
             }
-            State == "null" || State!!.isEmpty() -> {
-                _warningType.value = "STATE"
-                _warningFocus.value = "State can't be empty"
+            Pincode == "null" || Pincode!!.isEmpty() -> {
+                _warningType.value = "PINCODE"
+                _warningFocus.value = "Pincode can't be empty"
+                return true
+            }
+            Address == "null" || Address!!.isEmpty() -> {
+                _warningType.value = "ADDRESS"
+                _warningFocus.value = "Address can't be empty"
                 return true
             }
 

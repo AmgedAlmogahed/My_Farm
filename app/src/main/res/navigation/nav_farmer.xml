@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/farmerProducts"
-        android:name="com.example.farmer.ui.farmer.FarmerProducts"
+        android:name="com.example.farmer.ui.farmer.FarmerProductsFragment"
         android:label="My Products"
         tools:layout="@layout/fragment_farmer_products">
         <action

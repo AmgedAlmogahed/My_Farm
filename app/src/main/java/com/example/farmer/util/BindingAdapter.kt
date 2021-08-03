@@ -3,9 +3,10 @@ package com.example.farmer.util
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.farmer.data.network.responses.ProductResponse
 import com.example.farmer.data.room.entities.CustomerProducts
 import com.example.farmer.data.room.entities.Products
-import com.example.farmer.ui.farmer.FarmerAdapter
+import com.example.farmer.ui.farmer.FarmerProductsAdapter
 import com.example.farmer.ui.customer.ProductsAdapter
 
 
@@ -73,39 +74,39 @@ import com.example.farmer.ui.customer.ProductsAdapter
  */
 
 @BindingAdapter("farmerList")
-fun bindFarmerListRecyclerview(recyclerView: RecyclerView, data: List<Products>?){
-    val adapter = recyclerView.adapter as FarmerAdapter
+fun bindFarmerListRecyclerview(recyclerView: RecyclerView, data: List<ProductResponse>?){
+    val adapter = recyclerView.adapter as FarmerProductsAdapter
     adapter.submitList(data)
 }
 
 @BindingAdapter("productName")
-fun TextView.setProductName(item: Products){
+fun TextView.setProductName(item: ProductResponse){
     item.let {
         text = item.title
     }
 }
 
 @BindingAdapter("productQuality")
-fun TextView.setProductQuality(item: Products){
+fun TextView.setProductQuality(item: ProductResponse){
     item.let {
         text = item.quality
     }
 }
-@BindingAdapter("productUnit")
-fun TextView.setProductUnit(item: Products){
+@BindingAdapter("productStatus")
+fun TextView.setProductStatus(item: ProductResponse){
     item.let {
-        text = item.unit
+        text = item.status
     }
 }
 @BindingAdapter("productPrice")
-fun TextView.setProductPrice(item: Products){
+fun TextView.setProductPrice(item: ProductResponse){
     item.let {
         text = item.price
     }
 }
 
 @BindingAdapter("productStock")
-fun TextView.setProductStock(item: Products){
+fun TextView.setProductStock(item: ProductResponse){
     item.let {
         text = item.stock
     }

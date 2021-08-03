@@ -23,7 +23,8 @@ interface ProductsDao {
 
 
 
-
+    @Query("SELECT * FROM accounts ORDER BY id DESC")
+    fun getAllAccounts(): LiveData<List<Account>>
 
     /**
      * Deletes all values from the table.

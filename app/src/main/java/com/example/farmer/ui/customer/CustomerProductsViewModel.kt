@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.farmer.data.repository.Repository
+import com.example.farmer.data.network.repository.Repository
 import com.example.farmer.data.room.entities.CustomerProducts
 import com.example.farmer.util.ApiStatus
 import kotlinx.coroutines.launch

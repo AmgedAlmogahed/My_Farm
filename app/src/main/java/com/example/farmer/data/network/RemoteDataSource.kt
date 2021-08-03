@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 
 
-private const val BASE_URL = "https://172.0.0.1:5000"
+private const val BASE_URL = "http://192.168.1.6:5000/"
 
 /**
  * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
@@ -60,7 +60,7 @@ object AuthApi {
 }
 
 object FeedbackApi {
-    val RETROFIT_SERVICE: AccountApiService by lazy { retrofit.create(AccountApiService::class.java) }
+    val RETROFIT_SERVICE: FeedbackApiService by lazy { retrofit.create(FeedbackApiService::class.java) }
 }
 
 

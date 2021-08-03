@@ -6,10 +6,10 @@
   <data>
     <variable
         name="itemList"
-        type="com.example.farmer.data.room.entities.Products" />
+        type="com.example.farmer.data.network.responses.ProductResponse" />
       <variable
           name="callClickListener"
-          type="com.example.farmer.ui.farmer.FarmerAdapter.OnClickListener" />
+          type="com.example.farmer.ui.farmer.FarmerProductsAdapter.OnClickListener" />
      </data>
 
 
@@ -68,7 +68,6 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/stock"
                 app:layout_constraintEnd_toEndOf="@+id/textView15"
                 app:layout_constraintStart_toEndOf="@+id/stock"
-                app:productUnit="@{itemList}"
                 tools:text="ton" />
 
             <TextView

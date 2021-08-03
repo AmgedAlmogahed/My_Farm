@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.farmer.R
-import com.example.farmer.data.repository.Repository
+import com.example.farmer.data.network.repository.Repository
 import com.example.farmer.data.room.AppDatabase
 import com.example.farmer.databinding.FragmentCustomerProductsBinding
 

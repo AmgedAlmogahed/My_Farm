@@ -3,7 +3,7 @@ package com.example.farmer.ui.customer
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.farmer.data.repository.Repository
+import com.example.farmer.data.network.repository.Repository
 
 class CustomerProductsViewModelFactory(
     private val dataSource: Repository,

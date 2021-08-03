@@ -1,10 +1,10 @@
 package com.example.farmer.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -23,11 +23,11 @@ class SignUpFragment : Fragment() {
 
     lateinit var viewModel: AuthViewModel
     lateinit var binding: FragmentSignUpBinding
-    val args : SignUpFragmentArgs by navArgs()
+    val args: SignUpFragmentArgs by navArgs()
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSignUpBinding.inflate(inflater)
 
@@ -51,7 +51,6 @@ class SignUpFragment : Fragment() {
         binding.viewmodel = viewModel
 
 
-
         //1 check registration api status and if true the progressbar will stop and move to the verification layout
         //2 send OTP before moving for next layout
         viewModel.status.observe(viewLifecycleOwner, Observer { status ->
@@ -63,15 +62,13 @@ class SignUpFragment : Fragment() {
                     }
                     ApiStatus.DONE -> {
                         binding.progressBar2.visible(false)
-                        findNavController().navigate(SignUpFragmentDirections.actionSignUpToOtp(
-                            viewModel.userName.value.toString().trim(),
-                            viewModel.phoneNumber.value.toString().trim(),
-                            viewModel.whatsAppNumber.value.toString().trim(),
-                            viewModel.state.value.toString().trim(),
-                            viewModel.district.value.toString().trim(),
-                            "0",
-                            args.type
-                        ))
+                        findNavController().navigate(
+                            SignUpFragmentDirections.actionSignUpToOtp(
+                                viewModel.phoneNumber.value.toString().trim(),
+                                "0",
+                                args.type,
+                            )
+                        )
                     }
                     ApiStatus.ERROR -> {
                         binding.progressBar2.visible(false)
@@ -101,14 +98,19 @@ class SignUpFragment : Fragment() {
                         binding.editTextWhatsAppNumber.requestFocus()
                         return@let
                     }
-                    "STATE" -> {
-                        binding.editTextState.error = warning
-                        binding.editTextState.requestFocus()
+                    "CITY" -> {
+                        binding.editTextCity.error = warning
+                        binding.editTextCity.requestFocus()
                         return@let
                     }
-                    "DISTRICT" -> {
-                        binding.editTextDistrict.error = warning
-                        binding.editTextDistrict.requestFocus()
+                    "PINCODE" -> {
+                        binding.editTextPincode.error = warning
+                        binding.editTextPincode.requestFocus()
+                        return@let
+                    }
+                    "ADDRESS" -> {
+                        binding.editTextAddress.error = warning
+                        binding.editTextAddress.requestFocus()
                         return@let
                     }
                 }
@@ -127,7 +129,6 @@ class SignUpFragment : Fragment() {
 
         return binding.root
     }
-
 
 
 }

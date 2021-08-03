@@ -11,13 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.android.tasheel.data.repository.AuthRepository
-import com.example.farmer.ui.customer.CustomerActivity
-import com.example.farmer.ui.farmer.FarmerActivity
 import com.example.farmer.R
 import com.example.farmer.data.room.AppDatabase
 import com.example.farmer.databinding.FragmentOtpBinding
+import com.example.farmer.ui.customer.CustomerActivity
+import com.example.farmer.ui.farmer.FarmerActivity
 import com.example.farmer.util.*
-
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -31,14 +30,15 @@ class OtpFragment : Fragment() {
     lateinit var binding: FragmentOtpBinding
     private lateinit var phoneAuthCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private lateinit var fAuth: FirebaseAuth
-    private var state: String? = null
-    private var district: String? = null
+    private var city: String? = null
+    private var pincode: String? = null
+    private var address: String? = null
     private var name: String? = null
     private var whatsAppNumber: String? = null
     private lateinit var i: String
     private lateinit var phoneNumber: String
     private var verificationId: String = ""
-    private val args : OtpFragmentArgs by navArgs()
+    private val args: OtpFragmentArgs by navArgs()
 
     override fun onCreateView(
 
@@ -62,11 +62,7 @@ class OtpFragment : Fragment() {
                 this, viewModelFactory
             ).get(AuthViewModel::class.java)
 
-        name = args.userName
         phoneNumber = args.phoneNumber
-        whatsAppNumber = args.WhatsNumber
-        state = args.state
-        district = args.district
         i = args.i
 
 
@@ -148,7 +144,7 @@ class OtpFragment : Fragment() {
         viewModel.navigateToLogin.observe(viewLifecycleOwner, Observer {
             if (args.type == FARMER) {
                 requireActivity().startNewActivity(FarmerActivity::class.java)
-            }else {
+            } else {
                 requireActivity().startNewActivity(CustomerActivity::class.java)
             }
         })
@@ -157,7 +153,10 @@ class OtpFragment : Fragment() {
 
     }
 
-    private fun resendVerificationCode(phoneNumber: String, token: PhoneAuthProvider.ForceResendingToken?){
+    private fun resendVerificationCode(
+        phoneNumber: String,
+        token: PhoneAuthProvider.ForceResendingToken?
+    ) {
         val optionsBuilder = PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
             .setPhoneNumber(phoneNumber)       // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
@@ -191,17 +190,38 @@ class OtpFragment : Fragment() {
                 if (task.isSuccessful) {
                     toast("Verification Successful")
                     binding.progressBar3.visible(false)
+                    //if i is 0 means to register a new user if i is 1 means user is registered
                     if (i == "0") {
                         viewModel.registerUserIfOTPTrue(
                             name,
                             phoneNumber,
                             whatsAppNumber,
-                            state,
-                            district
+                            city,
+                            pincode,
+                            address,
+                            args.type
                         )
-                        viewModel.signInIfOTPTrue(phoneNumber,args.type)
+                        viewModel.signInIfOTPTrue(
+                            phoneNumber,
+                            viewModel.account.value?.whatsapp_number,
+                            viewModel.account.value?.id,
+                            viewModel.account.value?.name,
+                            viewModel.account.value?.state,
+                            viewModel.account.value?.pincode,
+                            viewModel.account.value?.address,
+                            viewModel.account.value?.type
+                        )
                     } else if (i == "1") {
-                        viewModel.signInIfOTPTrue(phoneNumber,args.type)
+                        viewModel.signInIfOTPTrue(
+                            phoneNumber,
+                            viewModel.account.value?.whatsapp_number,
+                            viewModel.account.value?.id,
+                            viewModel.account.value?.name,
+                            viewModel.account.value?.state,
+                            viewModel.account.value?.pincode,
+                            viewModel.account.value?.address,
+                            viewModel.account.value?.type
+                        )
                     }
                     viewModel.Login()
                 } else {

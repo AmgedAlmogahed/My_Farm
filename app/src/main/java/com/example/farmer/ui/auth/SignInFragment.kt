@@ -67,14 +67,10 @@ class SignInFragment : Fragment() {
                     ApiStatus.DONE -> {
                         binding.progressBar5.visible(false)
                         findNavController().navigate(SignInFragmentDirections.actionSignInToOtp(
-                            null,
                              viewModel.signInPhoneNumber.value.toString().trim(),
-                            null,
-                            null,
-                            null,
                             "1",
-                            args.type
-                        ))
+                            args.type,
+                            ))
                     }
                     ApiStatus.ERROR -> {
                         binding.progressBar5.visible(false)

@@ -14,6 +14,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="true"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,8 +39,10 @@
 
             <EditText
                 android:id="@+id/editTextFarmerName"
-                android:layout_width="379dp"
-                android:layout_height="60dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/edittext_background_cornered"
                 android:ems="10"
                 android:hint="Name"
@@ -51,13 +54,16 @@
                 android:textColorHint="@color/mmedium_grey"
                 app:layout_constraintBottom_toTopOf="@+id/editTextPhoneNumber"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_max="60dp"
+                app:layout_constraintHeight_min="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:layout_constraintVertical_chainStyle="spread" />
 
             <EditText
                 android:id="@+id/editTextPhoneNumber"
-                android:layout_width="379dp"
-                android:layout_height="60dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@drawable/edittext_background_cornered"
                 android:ems="10"
                 android:hint="Phone Number"
@@ -75,8 +81,8 @@
 
             <EditText
                 android:id="@+id/editTextWhatsAppNumber"
-                android:layout_width="379dp"
-                android:layout_height="60dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@drawable/edittext_background_cornered"
                 android:ems="10"
                 android:hint="WhatsApp Number"
@@ -86,46 +92,64 @@
                 android:text="@={viewmodel.whatsAppNumber}"
                 android:textColor="@color/lither_gray"
                 android:textColorHint="@color/mmedium_grey"
-                app:layout_constraintBottom_toTopOf="@+id/editTextState"
+                app:layout_constraintBottom_toTopOf="@+id/editTextCity"
                 app:layout_constraintEnd_toEndOf="@+id/editTextPhoneNumber"
                 app:layout_constraintStart_toStartOf="@+id/editTextPhoneNumber"
                 app:layout_constraintTop_toBottomOf="@+id/editTextPhoneNumber" />
 
             <EditText
-                android:id="@+id/editTextState"
-                android:layout_width="379dp"
-                android:layout_height="60dp"
+                android:id="@+id/editTextCity"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@drawable/edittext_background_cornered"
                 android:ems="10"
-                android:hint="State"
+                android:hint="City"
                 android:inputType="textPostalAddress"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:text="@={viewmodel.state}"
+                android:text="@={viewmodel.city}"
                 android:textColor="@color/lither_gray"
                 android:textColorHint="@color/mmedium_grey"
-                app:layout_constraintBottom_toTopOf="@+id/editTextDistrict"
+                app:layout_constraintBottom_toTopOf="@+id/editTextPincode"
                 app:layout_constraintEnd_toEndOf="@+id/editTextWhatsAppNumber"
                 app:layout_constraintStart_toStartOf="@+id/editTextWhatsAppNumber"
                 app:layout_constraintTop_toBottomOf="@+id/editTextWhatsAppNumber" />
 
             <EditText
-                android:id="@+id/editTextDistrict"
-                android:layout_width="379dp"
-                android:layout_height="60dp"
+                android:id="@+id/editTextPincode"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@drawable/edittext_background_cornered"
                 android:ems="10"
-                android:hint="City"
+                android:hint="Pincode"
                 android:inputType="textPersonName"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:text="@={viewmodel.district}"
+                android:text="@={viewmodel.pincode}"
+                android:textColor="@color/lither_gray"
+                android:textColorHint="@color/mmedium_grey"
+                app:layout_constraintBottom_toTopOf="@+id/editTextAddress"
+                app:layout_constraintEnd_toEndOf="@+id/editTextCity"
+                app:layout_constraintStart_toStartOf="@+id/editTextCity"
+                app:layout_constraintTop_toBottomOf="@+id/editTextCity" />
+
+            <EditText
+                android:id="@+id/editTextAddress"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/edittext_background_cornered"
+                android:ems="10"
+                android:hint="Address"
+                android:inputType="textPersonName"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@={viewmodel.address}"
                 android:textColor="@color/lither_gray"
                 android:textColorHint="@color/mmedium_grey"
                 app:layout_constraintBottom_toTopOf="@+id/buttonRegistration"
-                app:layout_constraintEnd_toEndOf="@+id/editTextState"
-                app:layout_constraintStart_toStartOf="@+id/editTextState"
-                app:layout_constraintTop_toBottomOf="@+id/editTextState" />
+                app:layout_constraintEnd_toEndOf="@+id/editTextCity"
+                app:layout_constraintStart_toStartOf="@+id/editTextCity"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPincode" />
 
             <Button
                 android:id="@+id/buttonRegistration"
@@ -135,9 +159,10 @@
                 android:onClick="@{() -> viewmodel.validateInputs()}"
                 android:text="Register"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/editTextDistrict"
-                app:layout_constraintStart_toStartOf="@+id/editTextDistrict"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDistrict" />
+                app:layout_constraintEnd_toEndOf="@+id/editTextPincode"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/editTextPincode"
+                app:layout_constraintTop_toBottomOf="@+id/editTextAddress" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar2"
