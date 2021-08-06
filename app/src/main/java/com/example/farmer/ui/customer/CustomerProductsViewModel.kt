@@ -1,11 +1,13 @@
 package com.example.farmer.ui.customer
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.farmer.data.network.repository.Repository
+import com.example.farmer.data.network.responses.AllProductsResponse
 import com.example.farmer.data.room.entities.CustomerProducts
 import com.example.farmer.util.ApiStatus
 import kotlinx.coroutines.launch
@@ -26,7 +28,9 @@ class CustomerProductsViewModel(
     val listingResponse: LiveData<List<CustomerProducts?>>
         get() = _listingResponse
 
-    val products = repository.getAllProductsL()
+    private val _products: MutableLiveData<List<AllProductsResponse>> = MutableLiveData()
+    val products: LiveData<List<AllProductsResponse>>
+        get() = _products
 
     // Internally, we use a MutableLiveData to handle navigation to the selected property
     private val _navigateToSelectedRestaurant = MutableLiveData<CustomerProducts>()
@@ -36,22 +40,23 @@ class CustomerProductsViewModel(
         get() = _navigateToSelectedRestaurant
 
 
-//    init {
-//        getAllSellers()
-//    }
+    init {
+        getAllSellers()
+    }
 
-//    private fun getAllSellers() {
-//        viewModelScope.launch {
-//            _status.value = ApiStatus.LOADING
-//            try {
-//                _listingResponse.value = repository.getAllProductsL()
-//                _status.value = ApiStatus.DONE
-//            } catch (e: Exception) {
-//                _status.value = ApiStatus.ERROR
-//                _listingResponse.value = ArrayList()
-//            }
-//        }
-//    }
+    private fun getAllSellers() {
+        viewModelScope.launch {
+            _status.value = ApiStatus.LOADING
+            try {
+                _products.value = repository.getAllProducts()
+                _status.value = ApiStatus.DONE
+            } catch (e: Exception) {
+                Log.i("network error", e.toString())
+                _status.value = ApiStatus.ERROR
+                _products.value = ArrayList()
+            }
+        }
+    }
 
     /**
      * When the property is clicked, set the [_navigateToSelectedRestaurant] [MutableLiveData]

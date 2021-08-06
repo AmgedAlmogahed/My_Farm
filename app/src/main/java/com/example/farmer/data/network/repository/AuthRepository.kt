@@ -2,13 +2,13 @@ package com.example.android.tasheel.data.repository
 
 //import com.example.android.tasheel.data.UserPreferences
 import com.example.farmer.data.network.AuthApi
-import com.example.farmer.data.room.dao.FarmerDao
+import com.example.farmer.data.room.dao.AccountDao
 import com.example.farmer.data.room.entities.Account
 import com.example.farmer.data.room.entities.Farmers
 
 
 
-class AuthRepository(private val farmerDao: FarmerDao? = null) {
+class AuthRepository(private val accountDao: AccountDao? = null) {
 
 
 
@@ -19,14 +19,14 @@ class AuthRepository(private val farmerDao: FarmerDao? = null) {
 //    ) = AuthApi.RETROFIT_SERVICE.validateUser(name, phoneNumber)
 
 
-    suspend fun addFarmer(farmer: Farmers) = farmerDao?.insert(farmer)
+    suspend fun addFarmer(farmer: Farmers) = accountDao?.insert(farmer)
 
-    suspend fun addAccount(account: Account) = farmerDao?.insert(account)
+    suspend fun addAccount(account: Account) = accountDao?.insert(account)
 
-    fun getAccount() = farmerDao?.getAllAccounts()
+    fun getAccount() = accountDao?.getAllAccounts()
 
 
-     suspend fun validateFarmer(phoneNumber: String) = farmerDao?.validateFarmer(phoneNumber)
+     suspend fun validateFarmer(phoneNumber: String) = accountDao?.validateFarmer(phoneNumber)
 
     //network layer function
 

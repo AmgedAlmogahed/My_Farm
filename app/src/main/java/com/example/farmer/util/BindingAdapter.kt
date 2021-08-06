@@ -3,9 +3,10 @@ package com.example.farmer.util
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.farmer.data.network.responses.ProductResponse
+import com.example.farmer.data.network.responses.AllProductsResponse
+import com.example.farmer.data.network.responses.FeedbackResponse
+import com.example.farmer.data.network.responses.ProductsResponseItem
 import com.example.farmer.data.room.entities.CustomerProducts
-import com.example.farmer.data.room.entities.Products
 import com.example.farmer.ui.farmer.FarmerProductsAdapter
 import com.example.farmer.ui.customer.ProductsAdapter
 
@@ -74,41 +75,48 @@ import com.example.farmer.ui.customer.ProductsAdapter
  */
 
 @BindingAdapter("farmerList")
-fun bindFarmerListRecyclerview(recyclerView: RecyclerView, data: List<ProductResponse>?){
+fun bindFarmerListRecyclerview(recyclerView: RecyclerView, data: List<ProductsResponseItem>?){
     val adapter = recyclerView.adapter as FarmerProductsAdapter
     adapter.submitList(data)
 }
 
 @BindingAdapter("productName")
-fun TextView.setProductName(item: ProductResponse){
+fun TextView.setProductName(item: ProductsResponseItem){
     item.let {
         text = item.title
     }
 }
 
 @BindingAdapter("productQuality")
-fun TextView.setProductQuality(item: ProductResponse){
+fun TextView.setProductQuality(item: ProductsResponseItem){
     item.let {
         text = item.quality
     }
 }
 @BindingAdapter("productStatus")
-fun TextView.setProductStatus(item: ProductResponse){
+fun TextView.setProductStatus(item: ProductsResponseItem){
     item.let {
         text = item.status
     }
 }
 @BindingAdapter("productPrice")
-fun TextView.setProductPrice(item: ProductResponse){
+fun TextView.setProductPrice(item: ProductsResponseItem){
     item.let {
         text = item.price
     }
 }
 
 @BindingAdapter("productStock")
-fun TextView.setProductStock(item: ProductResponse){
+fun TextView.setProductStock(item: ProductsResponseItem){
     item.let {
         text = item.stock
+    }
+}
+
+@BindingAdapter("productUnit")
+fun TextView.setProductUnit(item: ProductsResponseItem){
+    item.let {
+        text = item.unit
     }
 }
 
@@ -117,57 +125,71 @@ fun TextView.setProductStock(item: ProductResponse){
  */
 
 @BindingAdapter("productsList")
-fun bindCustomerProductRecyclerview(recyclerView: RecyclerView, data: List<CustomerProducts>?){
+fun bindCustomerProductRecyclerview(recyclerView: RecyclerView, data: List<AllProductsResponse>?){
     val adapter = recyclerView.adapter as ProductsAdapter
     adapter.submitList(data)
 }
 
 @BindingAdapter("productName")
-fun TextView.setProductName(item: CustomerProducts){
+fun TextView.setProductName(item: AllProductsResponse){
     item.let {
         text = item.title
     }
 }
 
 @BindingAdapter("productQuality")
-fun TextView.setProductQuality(item: CustomerProducts){
+fun TextView.setProductQuality(item: AllProductsResponse){
     item.let {
         text = item.quality
     }
 }
 @BindingAdapter("productUnit")
-fun TextView.setProductUnit(item: CustomerProducts){
+fun TextView.setProductUnit(item: AllProductsResponse){
     item.let {
         text = item.unit
     }
 }
 @BindingAdapter("productPrice")
-fun TextView.setProductPrice(item: CustomerProducts){
+fun TextView.setProductPrice(item: AllProductsResponse){
     item.let {
         text = item.price
     }
 }
 @BindingAdapter("farmerName")
-fun TextView.setFarmerName(item: CustomerProducts){
+fun TextView.setFarmerName(item: AllProductsResponse){
     item.let {
-        text = item.farmer_name
+        text = item.name
     }
 }
 @BindingAdapter("productDistrict")
-fun TextView.setProductDistrict(item: CustomerProducts){
+fun TextView.setProductDistrict(item: AllProductsResponse){
     item.let {
-        text = item.district
+        text = item.address
     }
 }
 @BindingAdapter("productState")
-fun TextView.setProductState(item: CustomerProducts){
+fun TextView.setProductState(item: AllProductsResponse){
     item.let {
         text = item.state
     }
 }
 @BindingAdapter("productStock")
-fun TextView.setProductStock(item: CustomerProducts){
+fun TextView.setProductStock(item: AllProductsResponse){
     item.let {
         text = item.stock
     }
 }
+
+@BindingAdapter("feedbackName")
+fun TextView.setFeedbackName(item: FeedbackResponse){
+    item.let {
+        text = item.name
+    }
+}
+@BindingAdapter("feedbackComment")
+fun TextView.setFeedbackComment(item: FeedbackResponse){
+    item.let {
+        text = item.comment
+    }
+}
+

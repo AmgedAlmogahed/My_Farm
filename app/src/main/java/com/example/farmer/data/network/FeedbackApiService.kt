@@ -7,7 +7,7 @@ import retrofit2.http.*
 interface FeedbackApiService {
 
 
-    @FormUrlEncoded
+
     @GET("comments/{id}")
     suspend fun getFeedbackForProduct(@Path("id") id: Int): List<FeedbackResponse>
 
@@ -15,8 +15,9 @@ interface FeedbackApiService {
     @POST("addcomment")
     suspend fun addComment(
         @Field("product_id") productId: Int,
-        @Field("customer_id") customerId: Int,
-        @Field("title") title: String,
+        @Field("customer_id") customerId: Int?,
+        @Field("comment") title: String?,
+        @Field("name") name: String?,
     ): AddResponse
 
 

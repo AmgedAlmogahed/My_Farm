@@ -24,7 +24,7 @@ interface ProductsDao {
 
 
     @Query("SELECT * FROM accounts ORDER BY id DESC")
-    fun getAllAccounts(): LiveData<List<Account>>
+    fun getAllAccounts(): List<Account>
 
     /**
      * Deletes all values from the table.
@@ -42,6 +42,8 @@ interface ProductsDao {
     @Query("SELECT * FROM products WHERE farmer_id = :key ORDER BY id DESC")
     fun getAllProducts(key: Long): LiveData<List<Products>>
 
+    @Query("SELECT * FROM accounts ORDER BY id DESC LIMIT 1")
+    suspend fun getToAccount(): Account?
     /**
      * Selects and returns the latest product.
      */
@@ -72,7 +74,7 @@ interface ProductsDao {
     /**
      * Selects and returns the rent with given rentId.
      */
-    @Query("SELECT * FROM farmers LIMIT 1")
+    @Query("SELECT * FROM accounts LIMIT 1")
     suspend fun validateFarmer(): Account?
 
     /**
@@ -80,8 +82,8 @@ interface ProductsDao {
      *
      * @param key startTimeMilli to match
      */
-    @Query("SELECT * from farmers WHERE phone_number = :key")
-    suspend fun get(key: String): Farmers?
+    @Query("SELECT * from accounts WHERE phone_number = :key")
+    suspend fun get(key: String): Account?
 
 
 }

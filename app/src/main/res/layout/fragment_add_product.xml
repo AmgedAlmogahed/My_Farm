@@ -6,7 +6,7 @@
     <data>
         <variable
             name="data"
-            type="com.example.farmer.ui.farmer.FarmerViewModel" />
+            type="com.example.farmer.ui.farmer.addproduct.AddProductViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/darker_grey"
-        tools:context=".ui.farmer.AddProduct">
+        tools:context=".ui.farmer.addproduct.AddProductFragment">
 
 
         <EditText

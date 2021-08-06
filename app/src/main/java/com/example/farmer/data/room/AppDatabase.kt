@@ -18,7 +18,7 @@ package com.example.farmer.data.room
 
 import android.content.Context
 import androidx.room.*
-import com.example.farmer.data.room.dao.FarmerDao
+import com.example.farmer.data.room.dao.AccountDao
 import com.example.farmer.data.room.dao.ProductsDao
 import com.example.farmer.data.room.entities.Account
 import com.example.farmer.data.room.entities.Farmers
@@ -37,7 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
     /**
      * Connects the database to the DAO.
      */
-    abstract val farmerDao: FarmerDao
+    abstract val accountDao: AccountDao
     abstract val productsDao: ProductsDao
     /**
      * Define a companion object, this allows us to add functions on the SleepDatabase class.

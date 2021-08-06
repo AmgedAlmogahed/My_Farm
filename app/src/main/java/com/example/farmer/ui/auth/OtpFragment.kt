@@ -51,7 +51,7 @@ class OtpFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dao = AppDatabase.getInstance(application).farmerDao
+        val dao = AppDatabase.getInstance(application).accountDao
 
         val dataSource = AuthRepository(dao)
 
@@ -62,7 +62,13 @@ class OtpFragment : Fragment() {
                 this, viewModelFactory
             ).get(AuthViewModel::class.java)
 
+        name = args.userName
         phoneNumber = args.phoneNumber
+        whatsAppNumber = args.whatsNumber
+        phoneNumber = args.phoneNumber
+        city = args.city
+        pincode = args.pincode
+        address = args.address
         i = args.i
 
 
@@ -126,17 +132,21 @@ class OtpFragment : Fragment() {
         binding.confirmOtp.setOnClickListener {
             val code = binding.OtpEditText.text.toString().trim()
 
-            if (code.isEmpty()) {
-                binding.OtpEditText.error = "Enter the OTP"
-                binding.OtpEditText.requestFocus()
-            } else {
-                if (verificationId.isNullOrEmpty() || verificationId.isNullOrBlank() || verificationId == "")
-                    toast("Wrong code please try again")
-                verificationId.let {
-                    val credential = PhoneAuthProvider.getCredential(verificationId, code)
-                    addPhoneNumber(credential)
-                }
+            try {
+                if (code.isEmpty()) {
+                    binding.OtpEditText.error = "Enter the OTP"
+                    binding.OtpEditText.requestFocus()
+                } else {
+                    if (verificationId.isNullOrEmpty() || verificationId.isNullOrBlank() || verificationId == "")
+                        toast("Wrong code please try again")
+                    verificationId.let {
+                        val credential = PhoneAuthProvider.getCredential(verificationId, code)
+                        addPhoneNumber(credential)
+                    }
 
+                }
+            } catch (e: Exception) {
+                Log.i("OTP",e.toString())
             }
         }
 
@@ -171,6 +181,7 @@ class OtpFragment : Fragment() {
         binding.resendOtp.isEnabled = false
     }
 
+
     private fun firebaseInstance(number: String) {
         val phoneNumber = "+91$number"
 
@@ -201,29 +212,16 @@ class OtpFragment : Fragment() {
                             address,
                             args.type
                         )
-                        viewModel.signInIfOTPTrue(
-                            phoneNumber,
-                            viewModel.account.value?.whatsapp_number,
-                            viewModel.account.value?.id,
-                            viewModel.account.value?.name,
-                            viewModel.account.value?.state,
-                            viewModel.account.value?.pincode,
-                            viewModel.account.value?.address,
-                            viewModel.account.value?.type
-                        )
+                        if(viewModel.status.value == ApiStatus.DONE) {
+                            viewModel.Login()
+                        }
                     } else if (i == "1") {
                         viewModel.signInIfOTPTrue(
-                            phoneNumber,
-                            viewModel.account.value?.whatsapp_number,
-                            viewModel.account.value?.id,
-                            viewModel.account.value?.name,
-                            viewModel.account.value?.state,
-                            viewModel.account.value?.pincode,
-                            viewModel.account.value?.address,
-                            viewModel.account.value?.type
+                            phoneNumber
                         )
+                        viewModel.Login()
                     }
-                    viewModel.Login()
+
                 } else {
                     binding.progressBar3.visible(false)
                     toast(task.exception?.message!!)

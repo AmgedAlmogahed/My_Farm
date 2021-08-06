@@ -24,33 +24,93 @@
             app:destination="@id/addFeedback" />
         <argument
             android:name="title"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="farmer"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
         <argument
             android:name="state"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
         <argument
-            android:name="district"
-            app:argType="string" />
+            android:name="address"
+            app:argType="string"
+            app:nullable="true"/>
         <argument
             android:name="price"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
         <argument
             android:name="quality"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
         <argument
             android:name="stock"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
         <argument
             android:name="unit"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="id"
+            app:argType="integer"
+            />
+        <argument
+            android:name="pincode"
+            app:argType="string"
+            app:nullable="true"/>
 
     </fragment>
     <fragment
         android:id="@+id/addFeedback"
         android:name="com.example.farmer.ui.feedback.AddFeedbackFragment"
         tools:layout="@layout/fragment_add_feedback"
-        android:label="Add feedback" />
+        android:label="Add feedback" >
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="farmer"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="state"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="address"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="price"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="quality"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="stock"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="unit"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="id"
+            app:argType="integer"
+            />
+        <argument
+            android:name="pincode"
+            app:argType="string"
+            app:nullable="true"/>
+        <action
+            android:id="@+id/action_addFeedback_to_feedback"
+            app:destination="@id/feedback" />
+    </fragment>
 </navigation>

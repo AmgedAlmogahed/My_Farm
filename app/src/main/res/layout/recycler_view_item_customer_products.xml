@@ -7,7 +7,7 @@
 
         <variable
             name="listing"
-            type="com.example.farmer.data.room.entities.CustomerProducts" />
+            type="com.example.farmer.data.network.responses.AllProductsResponse" />
 
         <variable
             name="callClickListener"
@@ -38,22 +38,23 @@
             android:background="@color/dark_gray">
 
             <TextView
-                android:id="@+id/district"
+                android:id="@+id/state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:textColor="@color/light_grey"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView19"
-                app:layout_constraintStart_toStartOf="@+id/state"
+                app:layout_constraintStart_toStartOf="@+id/pincode"
                 app:productDistrict="@{listing}"
                 tools:text="Vaishali" />
 
             <TextView
-                android:id="@+id/state"
+                android:id="@+id/pincode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_grey"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView18"
-                app:layout_constraintStart_toStartOf="@+id/farmer_name"
+                app:layout_constraintStart_toStartOf="@+id/address"
                 app:productState="@{listing}"
                 tools:text="Bihar" />
 
@@ -189,7 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="State:"
+                android:text="City:"
                 android:textColor="@color/light_grey"
                 app:layout_constraintBottom_toTopOf="@+id/textView19"
                 app:layout_constraintStart_toStartOf="@+id/textView17"
@@ -199,21 +200,20 @@
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="District:"
+                android:text="Address:"
                 android:textColor="@color/light_grey"
                 app:layout_constraintBottom_toTopOf="@+id/button2"
                 app:layout_constraintStart_toStartOf="@+id/textView18"
                 app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
             <TextView
-                android:id="@+id/farmer_name"
+                android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:textColor="@color/light_grey"
                 app:farmerName="@{listing}"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView17"
-                app:layout_constraintStart_toEndOf="@+id/textView17"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
                 tools:text="Amged" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

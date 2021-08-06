@@ -53,9 +53,28 @@
         android:label="Otp"
         tools:layout="@layout/fragment_otp">
         <argument
+            android:name="userName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
             android:name="phoneNumber"
             app:argType="string" />
+        <argument
+            android:name="whatsNumber"
+            app:argType="string"
+            app:nullable="true"/>
 
+        <argument android:name="city"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument android:name="pincode"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="address"
+            app:argType="string"
+            app:nullable="true"/>
         <argument
             android:name="i"
             app:argType="string"

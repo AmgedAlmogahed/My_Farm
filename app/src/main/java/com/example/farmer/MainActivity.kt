@@ -10,6 +10,7 @@ import com.example.farmer.ui.auth.AuthActivity
 import com.example.farmer.ui.auth.AuthViewModel
 import com.example.farmer.ui.auth.AuthViewModelFactory
 import com.example.farmer.ui.customer.CustomerActivity
+import com.example.farmer.ui.farmer.FarmerActivity
 import com.example.farmer.util.CUSTOMER
 import com.example.farmer.util.startNewActivity
 
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val dao = AppDatabase.getInstance(application).farmerDao
+        val dao = AppDatabase.getInstance(application).accountDao
 
         val dataSource = AuthRepository(dao)
 
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.accounts?.observe(this, Observer {
 
 
-            val activity = if (it.isEmpty()) AuthActivity::class.java else if (it[0].type == CUSTOMER) CustomerActivity::class.java else CustomerActivity::class.java
+            val activity = if (it.isEmpty()) AuthActivity::class.java else if (it[0].type == CUSTOMER) CustomerActivity::class.java else FarmerActivity::class.java
             startNewActivity(activity)
         })
     }

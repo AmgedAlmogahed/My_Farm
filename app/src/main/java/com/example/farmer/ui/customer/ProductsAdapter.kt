@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.farmer.data.network.responses.AllProductsResponse
 
 import com.example.farmer.data.room.entities.CustomerProducts
 import com.example.farmer.databinding.RecyclerViewItemCustomerProductsBinding
 
 
-class ProductsAdapter(private val onClickListener: OnClickListener,private val onClickListener1: OnClickListener,private val onClickListener3: OnClickListener) : ListAdapter<CustomerProducts, ProductsAdapter.ListingViewHolder>(DiffCallback) {
+class ProductsAdapter(private val onClickListener: OnClickListener,private val onClickListener1: OnClickListener,private val onClickListener3: OnClickListener) : ListAdapter<AllProductsResponse, ProductsAdapter.ListingViewHolder>(DiffCallback) {
     /**
      * The ListingViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [CustomerProducts] information.
@@ -21,7 +22,7 @@ class ProductsAdapter(private val onClickListener: OnClickListener,private val o
             call: OnClickListener,
             whats: OnClickListener,
             feedback: OnClickListener,
-            listing: CustomerProducts) {
+            listing: AllProductsResponse) {
             binding.listing = listing
             binding.callClickListener = call
             binding.whatsAppClickListener = whats
@@ -44,13 +45,13 @@ class ProductsAdapter(private val onClickListener: OnClickListener,private val o
      * Allows the RecyclerView to determine which items have changed when the [List] of [ListingResponse]
      * has been updated.
      */
-    companion object DiffCallback : DiffUtil.ItemCallback<CustomerProducts>() {
-        override fun areItemsTheSame(oldItem: CustomerProducts, newItem: CustomerProducts): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<AllProductsResponse>() {
+        override fun areItemsTheSame(oldItem: AllProductsResponse, newItem: AllProductsResponse): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: CustomerProducts, newItem: CustomerProducts): Boolean {
-            return true
+        override fun areContentsTheSame(oldItem: AllProductsResponse, newItem: AllProductsResponse): Boolean {
+            return oldItem.id == newItem.id
         }
     }
 
@@ -71,11 +72,11 @@ class ProductsAdapter(private val onClickListener: OnClickListener,private val o
     }
 
     /**
-     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [CustomerProducts]
+     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [AllProductsResponse]
      * associated with the current item to the [onClick] function.
-     * @param clickListener lambda that will be called with the current [CustomerProducts]
+     * @param clickListener lambda that will be called with the current [AllProductsResponse]
      */
-    class OnClickListener(val clickListener: (CustomerProducts:CustomerProducts) -> Unit) {
-        fun onClick(CustomerProducts:CustomerProducts) = clickListener(CustomerProducts)
+    class OnClickListener(val clickListener: (allProductsResponse: AllProductsResponse) -> Unit) {
+        fun onClick(products:AllProductsResponse) = clickListener(products)
     }
 }

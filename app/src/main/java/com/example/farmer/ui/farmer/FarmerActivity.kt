@@ -21,7 +21,7 @@ class FarmerActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.fade_out, R.anim.fade_in)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
-        val dao = AppDatabase.getInstance(application).farmerDao
+        val dao = AppDatabase.getInstance(application).accountDao
 
         val dataSource = AuthRepository(dao)
 

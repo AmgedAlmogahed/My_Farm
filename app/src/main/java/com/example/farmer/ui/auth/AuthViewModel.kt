@@ -56,6 +56,7 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
     val loginResponse: LiveData<LoginResponse>
         get() = _loginResponse
 
+
 //    val registerResponse: LiveData<List<Account?>>
 //        get() = _registerResponse
 
@@ -69,7 +70,7 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
         get() = _navigateToLogin
 
     private val _account = MutableLiveData<com.example.farmer.data.network.responses.Account>()
-    val account : LiveData<com.example.farmer.data.network.responses.Account>
+    val account: LiveData<com.example.farmer.data.network.responses.Account>
         get() = _account
 
     /**
@@ -98,7 +99,8 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
     ) {
 
         viewModelScope.launch {
-            val add = repository.addAccount(
+            _status.value = ApiStatus.LOADING
+            repository.addAccount(
                 userName,
                 phoneNumber,
                 WhatsAppNumber,
@@ -107,33 +109,29 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
                 address,
                 type
             )
-
-            _account.value = add.account[0]
+            signInIfOTPTrue(phoneNumber)
         }
+
+        _status.value = ApiStatus.DONE
 
     }
 
     fun signInIfOTPTrue(
-        phoneNumber: String,
-        whatsNumber: String?,
-        accountId: Int?,
-        name: String?,
-        state: String?,
-        pincode: String?,
-        address: String?,
-        type: String?
+        phoneNumber: String
     ) {
 
         viewModelScope.launch {
+            _account.value = repository.validateAccount(phoneNumber).account[0]
+
             val account = Account(
-                phoneNumber,
-                whatsNumber,
-                accountId,
-                name,
-                state,
-                pincode,
-                address,
-                type
+                _account.value!!.phone_number,
+                _account.value!!.whatsapp_number,
+                _account.value!!.id,
+                _account.value!!.name,
+                _account.value!!.state,
+                _account.value!!.pincode,
+                _account.value!!.address,
+                _account.value!!.type
             )
             repository.addAccount(account)
         }
@@ -198,7 +196,6 @@ class AuthViewModel(val repository: AuthRepository, application: Application) :
                     _toastMessage.value = "Phone number is not registered"
                 } else if (farmer.account[0].phone_number == phoneNumber) {
                     _status.value = ApiStatus.DONE
-                    _account.value = farmer.account[0]
                 }
             } catch (e: Exception) {
                 Log.i("Authentication", e.toString())

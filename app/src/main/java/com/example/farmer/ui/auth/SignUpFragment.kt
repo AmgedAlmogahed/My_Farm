@@ -35,7 +35,7 @@ class SignUpFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dao = AppDatabase.getInstance(application).farmerDao
+        val dao = AppDatabase.getInstance(application).accountDao
 
         val dataSource = AuthRepository(dao)
 
@@ -64,9 +64,14 @@ class SignUpFragment : Fragment() {
                         binding.progressBar2.visible(false)
                         findNavController().navigate(
                             SignUpFragmentDirections.actionSignUpToOtp(
+                                viewModel.userName.value.toString().trim(),
                                 viewModel.phoneNumber.value.toString().trim(),
+                                viewModel.whatsAppNumber.value.toString().trim(),
+                                viewModel.city.value.toString().trim(),
+                                viewModel.pincode.value.toString().trim(),
+                                viewModel.address.value.toString().trim(),
                                 "0",
-                                args.type,
+                                args.type
                             )
                         )
                     }

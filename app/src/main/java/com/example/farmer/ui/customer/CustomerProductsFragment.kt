@@ -16,6 +16,7 @@ import com.example.farmer.data.room.AppDatabase
 import com.example.farmer.databinding.FragmentCustomerProductsBinding
 
 import com.example.farmer.ui.auth.AuthActivity
+import com.example.farmer.util.apiStatus
 import com.example.farmer.util.startNewActivity
 import com.example.farmer.util.toolbar
 import com.example.farmer.util.visible
@@ -90,36 +91,39 @@ class CustomerProductsFragment : Fragment() {
             ProductsAdapter.OnClickListener{
                 findNavController().navigate(CustomerProductsFragmentDirections.actionCustomerProductsToFeedback(
                     it.title,
-                    it.farmer_name,
+                    it.name,
                     it.state,
-                    it.district,
+                    it.address,
                     it.price,
                     it.quality,
                     it.stock,
-                    it.unit
+                    it.unit,
+                    it.id,
+                    it.pincode
                 ))
             }
         )
+
 
 
         // Sets the adapter of the photosGrid RecyclerView with clickHandler lambda that
         // tells the viewModel when our property is clicked
         binding.listing.adapter = adapter
 
-        viewModel.products?.observe(viewLifecycleOwner, Observer {
+        viewModel.products.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it.isNotEmpty()) {
                     binding.apply {
                         adapter.submitList(it)
                         listing.visible(true)
                         statusText.visible(false)
-//                        statusImage.visible(false)
+                        statusImage.visible(false)
                     }
                 } else {
                     binding.apply {
                         listing.visible(false)
                         statusText.visible(true)
-//                        statusImage.visible(true)
+                        statusImage.visible(true)
                     }
                 }
             }
@@ -137,7 +141,7 @@ class CustomerProductsFragment : Fragment() {
 //        })
 
 
-//        apiStatus(viewModel, binding.statusImage, binding.statusText, binding.progressBar)
+        apiStatus(viewModel, binding.statusImage, binding.statusText, binding.progressBar)
 
 
         return binding.root

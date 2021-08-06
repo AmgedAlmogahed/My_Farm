@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewmodel"
+            type="com.example.farmer.ui.feedback.FeedbackViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,22 +38,22 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/district"
+            android:id="@+id/state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:textColor="@color/light_grey"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView19"
-            app:layout_constraintStart_toStartOf="@+id/state"
+            app:layout_constraintStart_toStartOf="@+id/pincode"
             tools:text="Vaishali" />
 
         <TextView
-            android:id="@+id/state"
+            android:id="@+id/pincode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/light_grey"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView18"
-            app:layout_constraintStart_toStartOf="@+id/farmer_name"
+            app:layout_constraintStart_toStartOf="@+id/address"
 
             tools:text="Bihar" />
 
@@ -61,11 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:textColor="@color/lither_gray"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/view2"
             app:layout_constraintTop_toTopOf="@+id/view2"
             app:layout_constraintVertical_chainStyle="spread"
@@ -153,7 +152,7 @@
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="farmer:"
+            android:text="Address:"
             android:textColor="@color/light_grey"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -163,7 +162,7 @@
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="State:"
+            android:text="Pincode:"
             android:textColor="@color/light_grey"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView15"
             app:layout_constraintStart_toStartOf="@+id/textView17" />
@@ -172,14 +171,13 @@
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="District:"
+            android:text="City:"
             android:textColor="@color/light_grey"
-
             app:layout_constraintBaseline_toBaselineOf="@+id/textView9"
             app:layout_constraintStart_toStartOf="@+id/textView18" />
 
         <TextView
-            android:id="@+id/farmer_name"
+            android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/light_grey"
@@ -189,11 +187,13 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feedback_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -205,12 +205,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="FeedBack"
+            android:text="Review"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/feedback_list"
+            tools:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="there isn't any products added yet"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/statusImage"
+            app:layout_constraintStart_toStartOf="@+id/statusImage"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <ImageView
+            android:id="@+id/statusImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_connection_error"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar7"
@@ -222,6 +257,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/farmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lither_gray"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/product_name"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            tools:text="TextView" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_add_24"
+            app:backgroundTint="@color/green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="@color/green"
+            tools:ignore="SpeakableTextPresentCheck" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

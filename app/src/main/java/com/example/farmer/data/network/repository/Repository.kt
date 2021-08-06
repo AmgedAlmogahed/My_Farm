@@ -3,7 +3,6 @@ package com.example.farmer.data.network.repository
 import com.example.farmer.data.network.FeedbackApi
 import com.example.farmer.data.network.ProductsApi
 import com.example.farmer.data.room.dao.ProductsDao
-import com.example.farmer.data.room.entities.Products
 
 class Repository(private val dao: ProductsDao? = null) {
 
@@ -15,7 +14,7 @@ class Repository(private val dao: ProductsDao? = null) {
 
     //fun getFarmerProducts(key: Long) = dao?.getAllProducts(key)
 
-    suspend fun addProduct(product: Products) = dao?.insert(product)
+    //suspend fun addProduct(product: Products) = dao?.insert(product)
 
     suspend fun signOut() = dao?.clearAccounts()
 
@@ -23,7 +22,7 @@ class Repository(private val dao: ProductsDao? = null) {
 
     suspend fun getId(phoneNumber: String) = dao?.get(phoneNumber)
 
-    fun getAccount() = dao?.getAllAccounts()
+    suspend fun getAccount() = dao?.getToAccount()
 
     //Network layer Functions
 
@@ -38,11 +37,12 @@ class Repository(private val dao: ProductsDao? = null) {
      * this function accept 6 parameters to add products
      */
     suspend fun addProduct(
-        id: Int,
-        title: String,
-        price: String,
-        stock: String,
-        quality: String,
+        id: Int?,
+        title: String?,
+        price: String?,
+        stock: String?,
+        unit: String?,
+        quality: String?,
         status: String
     ) =
         ProductsApi.RETROFIT_SERVICE.addProduct(
@@ -50,6 +50,7 @@ class Repository(private val dao: ProductsDao? = null) {
             title,
             price,
             stock,
+            unit,
             quality,
             status
         )
@@ -63,8 +64,8 @@ class Repository(private val dao: ProductsDao? = null) {
 
     //Feedback functions
 
-    suspend fun addFeedback(productId:Int, customerId: Int, name: String) =
-        FeedbackApi.RETROFIT_SERVICE.addComment(productId, customerId, name)
+    suspend fun addFeedback(productId:Int, customerId: Int?, comment: String?, name: String?) =
+        FeedbackApi.RETROFIT_SERVICE.addComment(productId, customerId, comment, name)
 
     suspend fun getFeedback(productId : Int) =
         FeedbackApi.RETROFIT_SERVICE.getFeedbackForProduct(productId)

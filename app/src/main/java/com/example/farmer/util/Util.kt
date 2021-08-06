@@ -15,12 +15,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.farmer.R
 import com.example.farmer.ui.customer.CustomerProductsViewModel
+import com.example.farmer.ui.farmer.FarmerViewModel
+import com.example.farmer.ui.feedback.FeedbackViewModel
 import com.google.android.material.snackbar.Snackbar
 
 enum class ApiStatus { LOADING, ERROR, DONE }
 
 const val CUSTOMER = "customer"
 const val FARMER = "farmer"
+const val AVAILABLE = "available"
+const val UNAVAILABLE = "unavailable"
 
 
 fun toast(message: String?) {
@@ -76,6 +80,66 @@ fun Fragment.toolbar(toolbar: Toolbar, nav: Int) {
 }
 
 fun Fragment.apiStatus(
+    viewModel: FarmerViewModel,
+    statusImage: ImageView,
+    statusText: TextView,
+    progressBar: ProgressBar
+) {
+    viewModel.status.observe(viewLifecycleOwner, Observer { status ->
+        status?.let {
+            when (status) {
+                ApiStatus.LOADING -> {
+                    progressBar.visible(true)
+                    statusText.text = "Loading"
+                }
+                ApiStatus.ERROR -> {
+                    statusImage.visible(true)
+                    progressBar.visible(false)
+                    statusImage.setImageResource(R.drawable.ic_connection_error)
+                    statusText.text = "Check Your Internet Connection"
+
+                }
+                ApiStatus.DONE -> {
+                    statusImage.visible(false)
+                    statusText.visible(false)
+                    progressBar.visible(false)
+                }
+            }
+        }
+    })
+}
+
+fun Fragment.apiStatus(
+    viewModel: FeedbackViewModel,
+    statusImage: ImageView,
+    statusText: TextView,
+    progressBar: ProgressBar
+) {
+    viewModel.status.observe(viewLifecycleOwner, Observer { status ->
+        status?.let {
+            when (status) {
+                ApiStatus.LOADING -> {
+                    progressBar.visible(true)
+                    statusText.text = "Loading"
+                }
+                ApiStatus.ERROR -> {
+                    statusImage.visible(true)
+                    progressBar.visible(false)
+                    statusImage.setImageResource(R.drawable.ic_connection_error)
+                    statusText.text = "Check Your Internet Connection"
+
+                }
+                ApiStatus.DONE -> {
+                    statusImage.visible(false)
+                    statusText.visible(false)
+                    progressBar.visible(false)
+                }
+            }
+        }
+    })
+}
+
+fun Fragment.apiStatus(
     viewModel: CustomerProductsViewModel,
     statusImage: ImageView,
     statusText: TextView,
@@ -86,13 +150,13 @@ fun Fragment.apiStatus(
             when (status) {
                 ApiStatus.LOADING -> {
                     progressBar.visible(true)
-                    statusText.text = "يرجى الانتضار جاري التحميل"
+                    statusText.text = "Loading"
                 }
                 ApiStatus.ERROR -> {
                     statusImage.visible(true)
                     progressBar.visible(false)
                     statusImage.setImageResource(R.drawable.ic_connection_error)
-                    statusText.text = "يرجى التحقق من اتصالك بالانترنت"
+                    statusText.text = "Check Your Internet Connection"
 
                 }
                 ApiStatus.DONE -> {

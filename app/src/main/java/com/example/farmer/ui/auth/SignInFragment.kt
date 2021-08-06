@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavArgs
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.tasheel.data.repository.AuthRepository
@@ -35,7 +33,7 @@ class SignInFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dao = AppDatabase.getInstance(application).farmerDao
+        val dao = AppDatabase.getInstance(application).accountDao
 
         val dataSource = AuthRepository(dao)
 
@@ -67,9 +65,14 @@ class SignInFragment : Fragment() {
                     ApiStatus.DONE -> {
                         binding.progressBar5.visible(false)
                         findNavController().navigate(SignInFragmentDirections.actionSignInToOtp(
-                             viewModel.signInPhoneNumber.value.toString().trim(),
+                            null,
+                            viewModel.signInPhoneNumber.value.toString().trim(),
+                            null,
+                            null,
+                            null,
+                            null,
                             "1",
-                            args.type,
+                            args.type
                             ))
                     }
                     ApiStatus.ERROR -> {
